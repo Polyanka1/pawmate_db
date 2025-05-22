@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/sequelize");
 const User = require("./User");
-const Address = require("./Address");
 
 const Profile = sequelize.define("Profile", {
   id: {
@@ -20,23 +19,23 @@ const Profile = sequelize.define("Profile", {
   },
   surname: {
     type: DataTypes.STRING(100),
+    allowNull: false,
   },
   first_name: {
     type: DataTypes.STRING(100),
+    allowNull: false,
   },
   last_name: {
     type: DataTypes.STRING(100),
+    allowNull: false,
   },
   phone: {
     type: DataTypes.STRING(20),
-  },
-  address_id: {
-    type: DataTypes.BIGINT,
     allowNull: false,
   },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+  address: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
   },
 }, {
   tableName: "profiles",
@@ -44,6 +43,5 @@ const Profile = sequelize.define("Profile", {
 });
 
 Profile.belongsTo(User, { foreignKey: "user_id", onDelete: "CASCADE" });
-Profile.belongsTo(Address, { foreignKey: "address_id", onDelete: "CASCADE" });
 
 module.exports = Profile;

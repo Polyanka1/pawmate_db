@@ -1,7 +1,6 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/sequelize");
 const User = require("./User");
-const Address = require("./Address");
 
 const Service = sequelize.define("Service", {
   id: {
@@ -27,7 +26,7 @@ const Service = sequelize.define("Service", {
   user_email: {
     type: DataTypes.STRING(255),
   },
-  address_id: {
+  address: {
     type: DataTypes.BIGINT,
     allowNull: false,
   },
@@ -35,12 +34,15 @@ const Service = sequelize.define("Service", {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
+  photo: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  }
 }, {
   tableName: "services",
   timestamps: false,
 });
 
 Service.belongsTo(User, { foreignKey: "user_id", onDelete: "CASCADE" });
-Service.belongsTo(Address, { foreignKey: "address_id", onDelete: "CASCADE" });
 
 module.exports = Service;

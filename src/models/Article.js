@@ -15,6 +15,10 @@ const Article = sequelize.define("Article", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
+  photo: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  }
 }, {
   tableName: "articles",
   timestamps: false,
