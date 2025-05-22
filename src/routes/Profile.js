@@ -4,12 +4,15 @@ const validate = require("../middlewares/validate");
 const { checkRole } = require('../middlewares/auth');
 const ProfileScheme = require("../schemes/Profile");
 const passport = require('../config/passport');
+const upload = require("../middlewares/upload");
+
 
 const router = express.Router();
 
 router.post("/", 
     passport.authenticate('jwt', { session: false }), 
     checkRole(['admin', 'user']),
+    upload.single("photo"), 
     validate(ProfileScheme.create), 
     ProfileController.createProfile);
 
@@ -21,6 +24,7 @@ router.get("/:id",
 router.put("/:id", 
     passport.authenticate('jwt', { session: false }), 
     checkRole(['admin', 'user']),
+    upload.single("photo"),
     validate(ProfileScheme.update), 
     ProfileController.updateProfile);
 

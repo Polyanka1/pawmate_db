@@ -7,7 +7,7 @@ const ServiceScheme = {
     description: Joi.string().allow(null, ""),
     price: Joi.number().precision(2).min(0).default(0),
     user_email: Joi.string().email().allow(null, ""),
-    address_id: Joi.number().integer().required(),
+    address: Joi.string().max(100).allow(null, ""),
   }),
 
   update: Joi.object().keys({
@@ -15,7 +15,7 @@ const ServiceScheme = {
     description: Joi.string().allow(null, ""),
     price: Joi.number().precision(2).min(0),
     user_email: Joi.string().email().allow(null, ""),
-    address_id: Joi.number().integer(),
+    address: Joi.string().max(100).allow(null, ""),
   }),
 };
 
