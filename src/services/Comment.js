@@ -16,6 +16,10 @@ class CommentService {
   async deleteComment(id) {
     await CommentRepository.delete(id);
   }
+
+  async getCommentsByPostId(postId) {
+      return await CommentRepository.getCommentsByPostId(postId);
+    }
 }
 
 module.exports = new CommentService();

@@ -1,4 +1,5 @@
-const ForumPost = require("../models/ForumPost");
+const { Profile, ForumPost } = require('../models/initModels');
+
 
 class ForumPostRepository {
   async create(post) {
@@ -6,7 +7,16 @@ class ForumPostRepository {
   }
 
   async read(id) {
-    return await ForumPost.findByPk(id);
+
+    return await ForumPost.findByPk(id, {
+          include: [
+          {
+            model: Profile,
+            as: "profile",
+          },
+        ],
+      }
+    );
   }
 
   async update(id, postData) {
@@ -18,8 +28,17 @@ class ForumPostRepository {
   }
 
   async list() {
-    return await ForumPost.findAll();
+    return await ForumPost.findAll({
+           order: [["created_at", "DESC"]],
+        });
   }
+
+  // async getCommentsByPostId(postId) {
+  //   return await Comment.findAll({
+  //     where: { post_id: postId },
+  //     order: [["createdAt", "ASC"]],
+  //   });
+  // }
 }
 
 module.exports = new ForumPostRepository();

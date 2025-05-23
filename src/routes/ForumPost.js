@@ -30,4 +30,7 @@ router.delete("/:id",
     checkRole(['admin', 'user']),
     ForumPostController.deletePost);
 
+// router.get("/:id/comments", 
+//     ForumPostController.getCommentsByPostId);
+
 module.exports = router;

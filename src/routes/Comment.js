@@ -19,6 +19,7 @@ router.get("/:id",
 router.delete("/:id", 
     CommentController.deleteComment);
 
-// добавить получение всех комментариев для конкретного поста (доступен для всех пользователей, в том числе неавторизированных)
+router.get("/:id/comments", 
+    CommentController.getCommentsByPostId);
 
 module.exports = router;

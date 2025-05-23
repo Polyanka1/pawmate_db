@@ -9,6 +9,14 @@ class ServiceService {
     return await ServiceRepository.read(id);
   }
 
+  async getServiceByName(title) {
+    const results = await ServiceRepository.getServiceByName(title);
+    // if (results.length === 0) {
+    //   throw new Error('Услуги не найдены');
+    // }
+    return results;
+  }
+
   async updateService(id, serviceData) {
     await ServiceRepository.update(id, serviceData);
   }

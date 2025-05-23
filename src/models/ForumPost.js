@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/sequelize");
 const User = require("./User");
+const Profile = require("./Profile");
 
 const ForumPost = sequelize.define("ForumPost", {
   id: {
@@ -29,5 +30,20 @@ const ForumPost = sequelize.define("ForumPost", {
 });
 
 ForumPost.belongsTo(User, { foreignKey: "user_id", onDelete: "CASCADE" });
+// ForumPost.belongsTo(Profile, { foreignKey: 'user_id', as: 'profile' });
+
+// ForumPost.associate = models => {
+//   ForumPost.belongsTo(models.Profile, {
+//     foreignKey: 'profile_id',
+//     as: 'author',
+//   });
+// };
+
+ForumPost.associate = models => {
+  ForumPost.belongsTo(models.Profile, {
+    foreignKey: 'user_id',
+    as: 'profile',
+  });
+};
 
 module.exports = ForumPost;

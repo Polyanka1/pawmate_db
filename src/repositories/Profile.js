@@ -1,4 +1,5 @@
-const Profile = require("../models/Profile");
+const { Profile, ForumPost, Service, Pet } = require('../models/initModels');
+
 
 class ProfileRepository {
   async create(profile) {
@@ -6,7 +7,23 @@ class ProfileRepository {
   }
 
   async read(id) {
-    return await Profile.findByPk(id);
+    return await Profile.findByPk(id, {
+      include: [
+        {
+          model: ForumPost,
+          as: "posts",
+        },
+        {
+          model: Service,
+          as: "services",
+        },
+        {
+          model: Pet,
+          as: "pets",
+        },
+      ],
+    }    
+  );
   }
 
   async update(id, profileData) {

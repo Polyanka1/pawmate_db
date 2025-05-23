@@ -1,6 +1,5 @@
 const ProfileService = require("../services/Profile");
-const fs = require("fs");
-const path = require("path");
+
 
 class ProfileController {
   async createProfile(req, res) {

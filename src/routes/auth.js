@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const UserService = require('../services/User');
+const Profile = require('../models/Profile');
+
 
 // Берём секрет из .env или config
 const JWT_SECRET = 'SUPER_SECRET_KEY';
@@ -33,13 +35,18 @@ router.post('/login', async (req, res) => {
 
 // POST /auth/register
 // Если нужно, здесь же делаем регистрацию
-router.post('/register', async (req, res) => {
-  try {
-    const newUser = await UserService.createUser(req.body);
-    res.status(201).json({ message: 'Пользователь создан', userId: newUser.id });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+  router.post('/register', async (req, res) => {
+    try {
+      const newUser = await UserService.createUser(req.body);
+
+      await Profile.create({
+        user_id: newUser.id,
+      });
+      
+      res.status(201).json({ message: 'Пользователь создан', userId: newUser.id });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  });
 
 module.exports = router;

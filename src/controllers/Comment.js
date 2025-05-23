@@ -36,6 +36,15 @@ class CommentController {
       res.status(500).json({ error: error.message });
     }
   }
+
+  async getCommentsByPostId(req, res) {
+    try {
+      const comments = await CommentService.getCommentsByPostId(req.params.id);
+      res.status(200).json(comments);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new CommentController();

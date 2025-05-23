@@ -1,4 +1,4 @@
-const Comment = require("../models/Comment");
+const {Profile, Comment} = require('../models/initModels')
 
 class CommentRepository {
   async create(comment) {
@@ -6,7 +6,14 @@ class CommentRepository {
   }
 
   async read(id) {
-    return await Comment.findByPk(id);
+    return await Comment.findByPk(id, {
+      include: [
+      {
+        model: Profile,
+        as: "profile",
+      },
+    ],
+  });
   }
 
   async update(id, commentData) {
@@ -15,6 +22,13 @@ class CommentRepository {
 
   async delete(id) {
     return await Comment.destroy({ where: { id } });
+  }
+
+  async getCommentsByPostId(postId) {
+    return await Comment.findAll({
+      where: { post_id: postId },
+      // order: [["createdAt", "ASC"]],
+    });
   }
 }
 

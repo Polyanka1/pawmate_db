@@ -1,6 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../database/sequelize");
 const User = require("./User");
+const ForumPost = require("./ForumPost");
 
 const Profile = sequelize.define("Profile", {
   id: {
@@ -15,33 +16,38 @@ const Profile = sequelize.define("Profile", {
   },
   photo: {
     type: DataTypes.STRING(255),
-    allowNull: false,
+    allowNull: true,
   },
   surname: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true,
   },
   first_name: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true,
   },
   last_name: {
     type: DataTypes.STRING(100),
-    allowNull: false,
+    allowNull: true,
   },
   phone: {
     type: DataTypes.STRING(20),
-    allowNull: false,
+    allowNull: true,
   },
   address: {
     type: DataTypes.STRING(255),
-    allowNull: false,
+    allowNull: true,
   },
 }, {
   tableName: "profiles",
   timestamps: false,
 });
 
-Profile.belongsTo(User, { foreignKey: "user_id", onDelete: "CASCADE" });
+
+  
+
+  
+
+
 
 module.exports = Profile;

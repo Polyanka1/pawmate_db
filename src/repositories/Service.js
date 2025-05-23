@@ -18,7 +18,19 @@ class ServiceRepository {
   }
 
   async list() {
-    return await Service.findAll();
+    return await Service.findAll({
+        order: [["created_at", "DESC"]],
+    });
+  }
+
+  async getServiceByName(title) {
+    return await Service.findAll({
+      where: {
+        title: {
+          [require('sequelize').Op.iLike]: `%${title}%`, // поиск без учёта регистра
+        },
+      },
+    });
   }
 }
 

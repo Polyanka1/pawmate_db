@@ -3,7 +3,14 @@ const PetService = require("../services/Pet");
 class PetController {
   async createPet(req, res) {
     try {
-      const pet = await PetService.createPet(req.body);
+      const photoPath = req.file ? req.file.path : null;
+      
+      const petData = {
+        ...req.body,
+        photo: photoPath, 
+      };
+
+      const pet = await PetService.createPet(petData);
       res.status(201).json(pet);
     } catch (error) {
       res.status(500).json({ error: error.message });

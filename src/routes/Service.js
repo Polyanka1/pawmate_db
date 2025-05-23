@@ -16,6 +16,10 @@ router.post("/",
 router.get("/", 
     ServiceController.getAllServices);
 
+    //http://localhost:3000/services/search?title=ремонт
+router.get("/search", 
+    ServiceController.getServiceByName);
+
 router.get("/:id", 
     ServiceController.getServiceById);
 

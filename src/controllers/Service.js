@@ -19,6 +19,18 @@ class ServiceController {
     }
   }
 
+  async getServiceByName(req, res) {
+    try {
+      const services = await ServiceService.getServiceByName(req.query.title);
+      res.status(200).json(services);
+    } catch (error) {
+      if (error.message === 'Услуги не найдены') {
+        return res.status(404).json({ message: error.message });
+      }
+      res.status(500).json({ error: error.message });
+    }
+  }
+
   async updateService(req, res) {
     try {
       await ServiceService.updateService(req.params.id, req.body);

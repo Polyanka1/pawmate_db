@@ -3,7 +3,7 @@ const Joi = require("joi");
 const ProfileScheme = {
   create: Joi.object().keys({
     user_id: Joi.number().integer().required(),
-    photo: Joi.string().uri(),
+    photo: Joi.string().uri().allow(null, ""),
     surname: Joi.string().max(100).allow(null, ""),
     first_name: Joi.string().max(100).allow(null, ""),
     last_name: Joi.string().max(100).allow(null, ""),
